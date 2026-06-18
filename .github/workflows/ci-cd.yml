@@ -45,7 +45,7 @@ jobs:
         run: docker build -t ${{ env.IMAGE_NAME }}:scan .
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@v0.36.0
+        uses: aquasecurity/trivy-action@v0.20.0
         with:
           image-ref: ${{ env.IMAGE_NAME }}:scan
           format: sarif
@@ -70,7 +70,7 @@ jobs:
         run: docker build -t ${{ env.IMAGE_NAME }}:sbom .
 
       - name: Generate SBOM with Syft
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@v0.15.0
         with:
           image: ${{ env.IMAGE_NAME }}:sbom
           format: spdx-json
@@ -92,7 +92,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-      id-token: write          # needed for keyless Cosign signing
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
